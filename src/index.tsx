@@ -1,12 +1,7 @@
 import * as React from "react";
 import { render } from "react-dom";
 import { AppContainer } from "react-hot-loader";
-import App from "./components/App";
-import PlayTutorial from "./Tutorial";
-import { Toggle } from "office-ui-fabric-react";
-import { Tutorial } from "./components/Tutorial";
-import { ITutorialItem } from "./model/ITutorialItem";
-import { ITutorial } from "./model/ITutorial";
+import App from "./samples/App";
 
 const rootEl = document.getElementById("root");
 

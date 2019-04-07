@@ -1,9 +1,9 @@
 import * as React from "react";
 import MyComponent from "./MyComponent";
-import { Tutorial } from "./Tutorial";
-import { ITutorialItem } from "../model/ITutorialItem";
-import { ITutorial } from "../model/ITutorial";
 import { Toggle } from "office-ui-fabric-react";
+
+import { Tutorial, ITutorial, ITutorialItem } from "../index";
+
 
 
 const item1: ITutorialItem = {

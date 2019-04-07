@@ -1,8 +1,9 @@
-import React = require("react");
-import { ITutorialItem } from "../model/ITutorialItem";
+import * as React from "react";
 import { TeachingBubble, autobind, Button, Link, IButtonProps } from "office-ui-fabric-react";
+
+import { ITutorialItem } from "../model/ITutorialItem";
 import { ITutorial } from "../model/ITutorial";
-import playTutorial, { shouldPlayTutorial } from "../Tutorial";
+import playTutorial, { shouldPlayTutorial } from "../core/TutorialCore";
 
 export interface ITutorialItemDisplayState {
 
@@ -22,7 +23,7 @@ export class TutorialItemDisplay extends React.Component<ITutorialItemDisplayPro
         this.state = {};
     }
 
-    public render(): React.ReactElement {
+    public render(): React.ReactElement<ITutorialItemDisplayProps> {
         console.log(`${this.props.tutorialItem.key} is rendered by React!`);
         const actionButton: IButtonProps = this.props.tutorialItem.nextTrigger == "action" ? {
             text: this.props.tutorialItem.nextActionText || "Next",
@@ -42,6 +43,8 @@ export class TutorialItemDisplay extends React.Component<ITutorialItemDisplayPro
                 primaryButtonProps={actionButton}
                 secondaryButtonProps={moreButton}
                 onDismiss={this._onDismiss.bind(this)}
+                ignoreExternalFocusing={true}
+                isClickableOutsideFocusTrap={false}
             >
                 {this.props.tutorialItem.content}
             </TeachingBubble>
@@ -61,8 +64,9 @@ export interface ITutorialState {
 }
 
 export interface ITutorialProps {
-    showReplayTutorial: boolean;
-    replayTutorialLabel: string;
+    showReplayTutorial?: boolean;
+    replayTutorialLabel?: string;
+    replayTutorialLabelProps?: any;
     tutorial: ITutorial;
 }
 
@@ -91,7 +95,7 @@ export class Tutorial extends React.Component<ITutorialProps, ITutorialState> {
 
         if (this.props.showReplayTutorial) {
             const replayLabel = this.props.replayTutorialLabel || "Play tutorial again";
-            content.push(<Link onClick={() => this._requestPlay()}>{replayLabel}</Link>);
+            content.push(<Link onClick={() => this._requestPlay()} {...this.props.replayTutorialLabelProps}>{replayLabel}</Link>);
         }
 
         return <div>
